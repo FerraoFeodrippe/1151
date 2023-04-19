@@ -8,7 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Core\1152.Core.AssemblyInfo\1152.Core.AssemblyInfo.csproj" />
+    <ProjectReference Include="..\..\Core\1151.Core.DepedencyInjection\1151.Core.DepedencyInjection.csproj" />
+    <ProjectReference Include="..\..\Cross\1151.Cross\1151.Cross.csproj" />
     <ProjectReference Include="..\1152.Modules.Contracts\1152.Modules.Contracts.csproj" />
   </ItemGroup>
 

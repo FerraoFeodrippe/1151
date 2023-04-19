@@ -1,23 +1,12 @@
 ﻿// See https://aka.ms/new-console-template for more information
-using _1152.Modules.Application.BasicUtil;
+using _1151.Core.Application;
+using _1151.Core.DepedencyInjection;
+using _1152.Modules.Implementation.BasicUtil;
 
-Console.WriteLine("Hello, World!");
+CoreDI.Initialize();
 
-
-var x = new BasicUtilModule(args);
-
-Console.WriteLine(x.Name);
-Console.WriteLine(x.MethodName);
-
-foreach(var method in x.MethodsName)
-{
-    Console.WriteLine(method);
-}
-
-foreach (var parameter in x.ParametersName)
-{
-    Console.WriteLine(parameter);
-}
+var app = new App();
+app.Run(args);
 
 
-Console.WriteLine();
+

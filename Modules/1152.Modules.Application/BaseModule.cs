@@ -1,8 +1,11 @@
-﻿using _1152.Core.AssemblyInfo.Helpers;
+﻿using _1151.Core.DepedencyInjection;
+using _1151.Cross.Helpers;
+using _1151.Cross.Outputs;
+using _1152.Cross.Helpers;
 using _1152.Modules.Contracts;
 using System.Reflection;
 
-namespace _1152.Modules.Application
+namespace _1152.Modules.Implementation
 {
 
     /// <summary>
@@ -10,14 +13,10 @@ namespace _1152.Modules.Application
     /// </summary>
     public abstract class BaseModule : IModule
     {
-        private readonly string ModuleSufix = "Module";
+        public readonly static string ModuleSufix = "Module";
+        private readonly IOutput[] _outputs;
 
         protected readonly string[] Args;
-
-        public static string[] GetModulesName()
-        {
-            return AssemblyHelper.GetTypesIsSubclassOf(typeof(BaseModule)).Select(t => t.Name).ToArray();
-        }
 
         public BaseModule(string[] args)
         {
@@ -34,7 +33,13 @@ namespace _1152.Modules.Application
                 throw new ArgumentException("Module not defined.");
             }
 
+            _outputs = CoreDI.GetValues<IOutput>()?.ToArray() ?? Array.Empty<IOutput>();
+
             Args = args;
+        }
+        public static string[] GetModulesName()
+        {
+            return AssemblyHelper.GetTypesIsSubclassOf(typeof(BaseModule)).Select(t => t.Name).ToArray();
         }
 
         /// <summary>
@@ -47,7 +52,10 @@ namespace _1152.Modules.Application
         /// </summary>
         public string MethodName => Args[1];
 
-        protected MethodInfo[] Methods => AssemblyHelper.CustomImplementMethods(GetType());
+        public string[] GetParametersValues() => Args.Skip(2).ToArray();
+
+        protected MethodInfo[] Methods => AssemblyHelper.GetCustomImplementMethods(GetType());
+        protected MethodInfo? Method => AssemblyHelper.GetCustomImplementMethod(MethodName, GetType());
 
         protected ParameterInfo[] GetParameters()
         {
@@ -71,9 +79,48 @@ namespace _1152.Modules.Application
         /// </summary>
         public string[] ParametersName => GetParameters().Select(m => m.Name ?? string.Empty).ToArray();
 
+        private void Print(string text)
+        {
+            OutputsPrinter.Print(text, _outputs);
+        }
+
         public void Run()
         {
-            //TODO: need implement to run specific method
+            Print(Name);
+            Print("________________");
+            Print(MethodName);
+            Print("________________");
+
+            foreach (var method in MethodsName)
+            {
+                Print(method);
+            }
+
+            Print("________________");
+
+            foreach (var parameter in ParametersName)
+            {
+                Print(parameter);
+            }
+
+            Print("________________");
+
+            if (Method != null)
+            {
+                List<object?> objParams = new(Method.GetParameters().Length);
+                var paramValues = GetParametersValues();
+                int i = 0;
+                foreach (var param in Method.GetParameters())
+                {
+                    objParams.Add(Convert.ChangeType(paramValues[i], param.ParameterType));
+                    i++;
+                }
+
+                var result = Method.Invoke(this, objParams.ToArray());
+
+                Print("Result: ");
+                Print(result?.ToString() ?? string.Empty);
+            }
         }
     }
 }

@@ -1,17 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
-    <RootNamespace>_1152.Presentation.Console</RootNamespace>
+    <RootNamespace>_1151.Core.Application</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Core\1151.Core.Application\1151.Core.Application.csproj" />
-    <ProjectReference Include="..\..\Core\1151.Core.DepedencyInjection\1151.Core.DepedencyInjection.csproj" />
+    <ProjectReference Include="..\..\Cross\1151.Cross\1151.Cross.csproj" />
     <ProjectReference Include="..\..\Modules\1152.Modules.Application\1152.Modules.Implementation.csproj" />
+    <ProjectReference Include="..\..\Modules\1152.Modules.Contracts\1152.Modules.Contracts.csproj" />
   </ItemGroup>
 
 </Project>
