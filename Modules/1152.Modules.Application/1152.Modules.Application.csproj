@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>_1152.Modules.Application</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\1152.Core.AssemblyInfo\1152.Core.AssemblyInfo.csproj" />
+    <ProjectReference Include="..\1152.Modules.Contracts\1152.Modules.Contracts.csproj" />
+  </ItemGroup>
+
+</Project>
