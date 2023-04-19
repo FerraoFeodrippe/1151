@@ -1,7 +1,7 @@
-﻿using _1151.Core.DepedencyInjection;
-using _1151.Cross.Helpers;
-using _1151.Cross.Outputs;
-using _1152.Cross.Helpers;
+﻿using _1151.Cross.DepedencyInjection;
+using _1151.Cross.Util.Helpers;
+using _1151.Cross.Util.Outputs;
+using _1152.Cross.Util.Helpers;
 using _1152.Modules.Contracts;
 using System.Reflection;
 
@@ -33,7 +33,7 @@ namespace _1152.Modules.Implementation
                 throw new ArgumentException("Module not defined.");
             }
 
-            _outputs = CoreDI.GetValues<IOutput>()?.ToArray() ?? Array.Empty<IOutput>();
+            _outputs = CrossDI.GetValues<IOutput>()?.ToArray() ?? Array.Empty<IOutput>();
 
             Args = args;
         }
@@ -98,9 +98,9 @@ namespace _1152.Modules.Implementation
 
             Print("________________");
 
-            foreach (var parameter in ParametersName)
+            foreach (var parameter in GetParameters())
             {
-                Print(parameter);
+                Print($"{parameter.Name}:{parameter.ParameterType.Name}");
             }
 
             Print("________________");

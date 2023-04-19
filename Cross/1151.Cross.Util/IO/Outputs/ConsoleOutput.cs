@@ -1,4 +1,4 @@
-﻿namespace _1151.Cross.Outputs
+﻿namespace _1151.Cross.Util.Outputs
 {
     public class ConsoleOutput : IOutput
     {

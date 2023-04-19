@@ -1,12 +1,8 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using _1151.Core.Application;
-using _1151.Core.DepedencyInjection;
-using _1152.Modules.Implementation.BasicUtil;
+using _1151.Cross.DepedencyInjection;
 
-CoreDI.Initialize();
+CrossDI.Initialize();
 
 var app = new App();
 app.Run(args);
-
-
-

@@ -10,7 +10,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Core\1151.Core.Application\1151.Core.Application.csproj" />
-    <ProjectReference Include="..\..\Core\1151.Core.DepedencyInjection\1151.Core.DepedencyInjection.csproj" />
     <ProjectReference Include="..\..\Modules\1152.Modules.Application\1152.Modules.Implementation.csproj" />
   </ItemGroup>
 

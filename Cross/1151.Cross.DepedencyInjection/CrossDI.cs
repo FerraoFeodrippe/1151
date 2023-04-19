@@ -1,9 +1,9 @@
-﻿using _1151.Cross.Outputs;
+﻿using _1151.Cross.Util.Outputs;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace _1151.Core.DepedencyInjection
+namespace _1151.Cross.DepedencyInjection
 {
-    public class CoreDI
+    public class CrossDI
     {
         private static IServiceProvider? _serviceProvider;
 

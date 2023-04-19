@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace _1151.Cross.Outputs
+namespace _1151.Cross.Util.Outputs
 {
     public class DebugOutput : IOutput
     {

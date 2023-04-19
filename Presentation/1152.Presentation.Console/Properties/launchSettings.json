@@ -1,7 +1,8 @@
 {
   "profiles": {
     "1152.Presentation.Console": {
-      "commandName": "Project"
+      "commandName": "Project",
+      "commandLineArgs": "BasicUtil Sum 1 2"
     }
   }
 }

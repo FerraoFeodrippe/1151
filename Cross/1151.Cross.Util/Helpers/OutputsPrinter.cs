@@ -1,6 +1,6 @@
-﻿using _1151.Cross.Outputs;
+﻿using _1151.Cross.Util.Outputs;
 
-namespace _1151.Cross.Helpers
+namespace _1151.Cross.Util.Helpers
 {
     public static class OutputsPrinter
     {

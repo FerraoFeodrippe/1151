@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace _1152.Cross.Helpers
+namespace _1152.Cross.Util.Helpers
 {
     public static class AssemblyHelper
     {

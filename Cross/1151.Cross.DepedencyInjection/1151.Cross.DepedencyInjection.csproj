@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <RootNamespace>_1151.Core.DepedencyInjection</RootNamespace>
+    <RootNamespace>_1151.Cross.DepedencyInjection</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Cross\1151.Cross\1151.Cross.csproj" />
+    <ProjectReference Include="..\1151.Cross.Util\1151.Cross.Util.csproj" />
   </ItemGroup>
 
 </Project>
