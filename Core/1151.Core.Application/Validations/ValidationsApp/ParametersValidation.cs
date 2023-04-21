@@ -1,5 +1,4 @@
-﻿using _1151.Cross.DepedencyInjection.Helpers;
-using _1152.Cross.Util.Helpers;
+﻿using _1152.Cross.Util.Helpers;
 using _1152.Modules.Implementation;
 
 namespace _1151.Core.Application.Validations.ValidationsApp

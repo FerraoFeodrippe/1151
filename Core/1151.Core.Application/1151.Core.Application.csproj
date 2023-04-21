@@ -9,8 +9,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Cross\1151.Cross.DepedencyInjection\1151.Cross.DepedencyInjection.csproj" />
-    <ProjectReference Include="..\..\Modules\1152.Modules.Application\1152.Modules.Implementation.csproj" />
     <ProjectReference Include="..\..\Modules\1152.Modules.Contracts\1152.Modules.Contracts.csproj" />
+    <ProjectReference Include="..\..\Modules\1152.Modules.Implementation\1152.Modules.Implementation.csproj" />
   </ItemGroup>
 
 </Project>

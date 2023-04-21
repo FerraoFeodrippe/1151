@@ -1,4 +1,5 @@
-﻿using _1151.Core.Application.Validations;
+﻿using _1151.Core.Application.Constants;
+using _1151.Core.Application.Validations;
 using _1151.Cross.DepedencyInjection.Helpers;
 using _1152.Cross.Util.Helpers;
 using _1152.Modules.Contracts;
@@ -21,22 +22,34 @@ namespace _1151.Core.Application
                     if (type != null)
                     {
                         IModule? module = (IModule?) Activator.CreateInstance(type, new object?[] { args });
-                        module?.Run();
+
+                        if (module != null)
+                        {
+
+                            OutputsPrinter.Print(module.GetModuleName());
+                            OutputsPrinter.Print(module.GetMethodName());
+
+                            foreach (var parameter in module.GetParameters())
+                            {
+                                OutputsPrinter.Print($"{parameter.Name}:{parameter.ParameterType.Name}");
+                            }
+
+                            OutputsPrinter.Print(AppConstants.Delimiter);
+
+                            module.Run();
+                        }
                     }
                 }
                 else
                 {
                     OutputsPrinter.Print("Can not execute, errors: ");
-                    foreach(var error in resultValidation.Errors)
-                    {
-                        OutputsPrinter.Print(error);
-                    }
+                    OutputsPrinter.Print(resultValidation.Errors);
                 }
             }
             catch(Exception ex)
             {
                 OutputsPrinter.Print("No expected Error!");
-                OutputsPrinter.Print("_________________");
+                OutputsPrinter.Print(AppConstants.Delimiter);
                 OutputsPrinter.Print(ex.Message);
             }
             

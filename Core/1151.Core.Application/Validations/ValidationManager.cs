@@ -19,7 +19,7 @@ namespace _1151.Core.Application.Validations
             }
             else
             {
-                result = MethodValidation.Validate(args)
+                result = result.ConcatResult(MethodValidation.Validate(args))
                      .ConcatResult(ParametersValidation.Validate(args));
             }
 

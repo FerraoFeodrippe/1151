@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "1152.Presentation.Console",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "1152.Modules.Contracts", "Modules\1152.Modules.Contracts\1152.Modules.Contracts.csproj", "{280A38AA-C6D8-44CE-A141-19BB825AF39C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "1152.Modules.Implementation", "Modules\1152.Modules.Application\1152.Modules.Implementation.csproj", "{606E1D46-A30B-4550-A90F-AC9B976E7757}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "1152.Modules.Implementation", "Modules\1152.Modules.Implementation\1152.Modules.Implementation.csproj", "{606E1D46-A30B-4550-A90F-AC9B976E7757}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "1151.Core.Application", "Core\1151.Core.Application\1151.Core.Application.csproj", "{B7EC1F3A-AB00-42C6-BE2D-907110F95A38}"
 EndProject

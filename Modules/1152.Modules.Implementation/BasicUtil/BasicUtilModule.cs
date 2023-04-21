@@ -1,8 +1,6 @@
-﻿using _1152.Modules.Contracts;
-
-namespace _1152.Modules.Implementation.BasicUtil
+﻿namespace _1152.Modules.Implementation.BasicUtil
 {
-    public class BasicUtilModule : BaseModule
+    public class BasicUtilModule: BaseModule
     {
         public BasicUtilModule(string[] args) : base(args)
         {

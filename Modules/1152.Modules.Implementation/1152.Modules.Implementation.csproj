@@ -13,4 +13,8 @@
     <ProjectReference Include="..\1152.Modules.Contracts\1152.Modules.Contracts.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include=".editorconfig" />
+  </ItemGroup>
+
 </Project>
