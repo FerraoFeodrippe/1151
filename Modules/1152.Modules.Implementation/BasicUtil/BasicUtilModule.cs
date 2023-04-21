@@ -1,4 +1,5 @@
-﻿namespace _1152.Modules.Implementation.BasicUtil
+﻿
+namespace _1152.Modules.Implementation.BasicUtil
 {
     public class BasicUtilModule: BaseModule
     {
