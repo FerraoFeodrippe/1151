@@ -16,7 +16,7 @@ namespace _1152.Cross.Util.Helpers
 
         public static MethodInfo? GetCustomImplementMethod(string methodName, Type type)
         {
-            return GetCustomImplementMethods(type).FirstOrDefault(t => methodName.Equals(t.Name));
+            return GetCustomImplementMethods(type).FirstOrDefault(t => methodName.Equals(t.Name, StringComparison.InvariantCultureIgnoreCase));
         }
 
         public static MethodInfo? GetCustomImplementMethod<T>(string methodName) where T : class
@@ -41,16 +41,12 @@ namespace _1152.Cross.Util.Helpers
         /// <returns></returns>
         public static Type? GetTypeIsBaseOf(string name, Type type)
         {
-            var testge = type.Assembly.GetTypes()[4];
-
-            
-
-            return type.Assembly.GetTypes().FirstOrDefault(t => name.Equals(t.Name) && type.IsEquivalentTo(t.BaseType));
+            return type.Assembly.GetTypes().FirstOrDefault(t => name.Equals(t.Name, StringComparison.InvariantCultureIgnoreCase) && type.IsEquivalentTo(t.BaseType));
         }
 
         public static Type? GetTypeIsSubclassOf(string name, Type type, Type typeAscendant)
         {
-            return type.Assembly.GetTypes().FirstOrDefault(t => name.Equals(type.Name) && t.IsSubclassOf(typeAscendant));
+            return type.Assembly.GetTypes().FirstOrDefault(t => name.Equals(type.Name, StringComparison.InvariantCultureIgnoreCase) && t.IsSubclassOf(typeAscendant));
         }
 
         public static object?[] GetObjectParameters(MethodInfo method, string[] paramValues)

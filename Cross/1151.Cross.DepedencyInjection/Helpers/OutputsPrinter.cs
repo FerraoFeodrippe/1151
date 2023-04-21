@@ -13,5 +13,16 @@ namespace _1151.Cross.DepedencyInjection.Helpers
                 output.Print(text);
             }
         }
+
+        public static void Print(string[] texts)
+        {
+            foreach (var text in texts)
+            {
+                foreach (var output in _outputs)
+                {
+                    output.Print(text);
+                }
+            }
+        }
     }
 }
