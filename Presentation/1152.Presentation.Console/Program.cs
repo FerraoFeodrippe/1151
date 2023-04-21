@@ -4,5 +4,4 @@ using _1151.Cross.DepedencyInjection;
 
 CrossDI.Initialize();
 
-var app = new App();
-app.Run(args);
+App.Run(args);

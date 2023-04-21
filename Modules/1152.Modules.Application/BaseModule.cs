@@ -1,6 +1,4 @@
-﻿using _1151.Cross.DepedencyInjection;
-using _1151.Cross.Util.Helpers;
-using _1151.Cross.Util.Outputs;
+﻿using _1151.Cross.DepedencyInjection.Helpers;
 using _1152.Cross.Util.Helpers;
 using _1152.Modules.Contracts;
 using System.Reflection;
@@ -14,8 +12,6 @@ namespace _1152.Modules.Implementation
     public abstract class BaseModule : IModule
     {
         public readonly static string ModuleSufix = "Module";
-        private readonly IOutput[] _outputs;
-
         protected readonly string[] Args;
 
         public BaseModule(string[] args)
@@ -26,20 +22,18 @@ namespace _1152.Modules.Implementation
             }
 
             bool isDefinedModule =
-                AssemblyHelper.GetTypesIsSubclassOf(typeof(BaseModule)).FirstOrDefault(t => $"{args[0]}{ModuleSufix}".Equals(t.Name)) != null;
+                ReflectionHelper.GetTypesIsSubclassOf(typeof(BaseModule)).FirstOrDefault(t => $"{args[0]}{ModuleSufix}".Equals(t.Name)) != null;
 
             if (!isDefinedModule)
             {
                 throw new ArgumentException("Module not defined.");
             }
 
-            _outputs = CrossDI.GetValues<IOutput>()?.ToArray() ?? Array.Empty<IOutput>();
-
             Args = args;
         }
         public static string[] GetModulesName()
         {
-            return AssemblyHelper.GetTypesIsSubclassOf(typeof(BaseModule)).Select(t => t.Name).ToArray();
+            return ReflectionHelper.GetTypesIsSubclassOf(typeof(BaseModule)).Select(t => t.Name).ToArray();
         }
 
         /// <summary>
@@ -54,8 +48,8 @@ namespace _1152.Modules.Implementation
 
         public string[] GetParametersValues() => Args.Skip(2).ToArray();
 
-        protected MethodInfo[] Methods => AssemblyHelper.GetCustomImplementMethods(GetType());
-        protected MethodInfo? Method => AssemblyHelper.GetCustomImplementMethod(MethodName, GetType());
+        protected MethodInfo[] Methods => ReflectionHelper.GetCustomImplementMethods(GetType());
+        protected MethodInfo? Method => ReflectionHelper.GetCustomImplementMethod(MethodName, GetType());
 
         protected ParameterInfo[] GetParameters()
         {
@@ -79,47 +73,35 @@ namespace _1152.Modules.Implementation
         /// </summary>
         public string[] ParametersName => GetParameters().Select(m => m.Name ?? string.Empty).ToArray();
 
-        private void Print(string text)
-        {
-            OutputsPrinter.Print(text, _outputs);
-        }
 
         public void Run()
         {
-            Print(Name);
-            Print("________________");
-            Print(MethodName);
-            Print("________________");
+            OutputsPrinter.Print(Name);
+            OutputsPrinter.Print("________________");
+            OutputsPrinter.Print(MethodName);
+            OutputsPrinter.Print("________________");
 
             foreach (var method in MethodsName)
             {
-                Print(method);
+                OutputsPrinter.Print(method);
             }
 
-            Print("________________");
+            OutputsPrinter.Print("________________");
 
             foreach (var parameter in GetParameters())
             {
-                Print($"{parameter.Name}:{parameter.ParameterType.Name}");
+                OutputsPrinter.Print($"{parameter.Name}:{parameter.ParameterType.Name}");
             }
 
-            Print("________________");
+            OutputsPrinter.Print("________________");
 
             if (Method != null)
             {
-                List<object?> objParams = new(Method.GetParameters().Length);
-                var paramValues = GetParametersValues();
-                int i = 0;
-                foreach (var param in Method.GetParameters())
-                {
-                    objParams.Add(Convert.ChangeType(paramValues[i], param.ParameterType));
-                    i++;
-                }
-
+                var objParams = ReflectionHelper.GetObjectParameters(Method, GetParametersValues());
                 var result = Method.Invoke(this, objParams.ToArray());
 
-                Print("Result: ");
-                Print(result?.ToString() ?? string.Empty);
+                OutputsPrinter.Print("Result: ");
+                OutputsPrinter.Print(result?.ToString() ?? string.Empty);
             }
         }
     }

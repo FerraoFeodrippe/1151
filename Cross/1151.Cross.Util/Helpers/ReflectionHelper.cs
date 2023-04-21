@@ -2,7 +2,7 @@
 
 namespace _1152.Cross.Util.Helpers
 {
-    public static class AssemblyHelper
+    public static class ReflectionHelper
     {
         public static MethodInfo[] GetCustomImplementMethods(Type type)
         {
@@ -53,5 +53,23 @@ namespace _1152.Cross.Util.Helpers
             return type.Assembly.GetTypes().FirstOrDefault(t => name.Equals(type.Name) && t.IsSubclassOf(typeAscendant));
         }
 
+        public static object?[] GetObjectParameters(MethodInfo method, string[] paramValues)
+        {
+            var parameters = method.GetParameters();
+
+            if (parameters.Length == 0)
+            {
+                return Array.Empty<object?[]>();
+            }
+
+            object?[] objParams = new object?[parameters.Length];
+            
+            for (int i = 0; i < parameters.Length; i++)
+            {
+                objParams[i] = Convert.ChangeType(paramValues[i], parameters[i].ParameterType);
+            }
+
+            return objParams;
+        }
     }
 }
