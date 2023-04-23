@@ -9,57 +9,48 @@ namespace _1151.Core.Application
 {
     public class App: IDisposable
     {
-        private static readonly CancellationTokenSource _tokenSource = new();
+        public void Dispose()
+        {
+            // nothing for now
+        }
 
         public void Run(string[] args)
         {
-            try 
+            try
             {
-                Task.Run(() =>
+                var resultValidation = ValidationManager.Start(args);
+
+                if (resultValidation.IsOk)
                 {
-                    try
+                    var type = ReflectionHelper.GetTypeIsBaseOf($"{args[0]}{BaseModule.ModuleSufix}", typeof(BaseModule));
+
+                    if (type != null)
                     {
-                        var resultValidation = ValidationManager.Start(args);
+                        IModule? module = (IModule?)Activator.CreateInstance(type, new object?[] { args });
 
-                        if (resultValidation.IsOk)
+                        if (module != null)
                         {
-                            var type = ReflectionHelper.GetTypeIsBaseOf($"{args[0]}{BaseModule.ModuleSufix}", typeof(BaseModule));
 
-                            if (type != null)
+                            OutputsPrinter.Print(module.GetModuleName());
+                            OutputsPrinter.Print(module.GetMethodName());
+
+                            foreach (var parameter in module.GetParameters())
                             {
-                                IModule? module = (IModule?)Activator.CreateInstance(type, new object?[] { args });
-
-                                if (module != null)
-                                {
-
-                                    OutputsPrinter.Print(module.GetModuleName());
-                                    OutputsPrinter.Print(module.GetMethodName());
-
-                                    foreach (var parameter in module.GetParameters())
-                                    {
-                                        OutputsPrinter.Print($"{parameter.Name}:{parameter.ParameterType.Name}");
-                                    }
-
-                                    OutputsPrinter.Print(AppConstants.Delimiter);
-
-                                    module.Run();
-                                }
+                                OutputsPrinter.Print($"{parameter.Name}:{parameter.ParameterType.Name}");
                             }
-                        }
-                        else
-                        {
-                            OutputsPrinter.Print("Can not execute, errors: ");
-                            OutputsPrinter.Print(resultValidation.Errors);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        OutputsPrinter.Print("No expected Error!");
-                        OutputsPrinter.Print(AppConstants.Delimiter);
-                        OutputsPrinter.Print(ex.Message);
-                    }
-                }, _tokenSource.Token);
 
+                            OutputsPrinter.Print(AppConstants.Delimiter);
+
+                            module.Run();
+                        }
+                    }
+                }
+                else
+                {
+                    OutputsPrinter.Print("Can not execute, check below.");
+                    OutputsPrinter.Print(AppConstants.Delimiter);
+                    OutputsPrinter.Print(resultValidation.Errors);
+                }
             }
             catch (Exception ex)
             {
@@ -69,10 +60,5 @@ namespace _1151.Core.Application
             }
         }
 
-        public void Dispose()
-        {
-            _tokenSource.Cancel();
-            _tokenSource.Dispose();
-        }
     }
 }

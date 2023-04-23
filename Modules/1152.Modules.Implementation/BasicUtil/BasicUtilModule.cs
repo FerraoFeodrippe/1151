@@ -31,5 +31,10 @@ namespace _1152.Modules.Implementation.BasicUtil
         {
             return number1 / number2;
         }
+
+        public async Task<decimal> SumAsync(decimal number1, decimal number2)
+        {
+            return await Task.Run<decimal>(() => Sum(number1, number2));
+        }
     }
 }

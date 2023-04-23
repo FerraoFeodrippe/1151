@@ -9,6 +9,7 @@ namespace _1152.Modules.Application.BasicUtil
     public class DrawModule : BaseModule
     {
         private static CancellationTokenSource _tokenSource = new();
+        private readonly object __locker = new ();
 
         public DrawModule(string[] args) : base(args)
         {
@@ -22,11 +23,12 @@ namespace _1152.Modules.Application.BasicUtil
         /// <summary>
         /// Windows only for now
         /// </summary>
-        public void DrawStart()
+        public async void DrawStart()
         {
-            var token = _tokenSource.Token;
+            DrawStop();
+            var token = GetToken();
 
-            Task.Run(() =>
+            await Task.Run(() =>
             {
                 IntPtr desktopPtr = GetDC(IntPtr.Zero);
                 Graphics g = Graphics.FromHdc(desktopPtr);
@@ -56,14 +58,29 @@ namespace _1152.Modules.Application.BasicUtil
                     _tokenSource = new();
                 }
 
-            }, token);
+            }, _tokenSource.Token);
+        }
+
+        private CancellationToken GetToken()
+        {
+            CancellationToken result;
+
+            lock (__locker)
+            {
+                result = _tokenSource.Token;
+            }
+
+            return result;
         }
 
         public void DrawStop()
         {
-            _tokenSource.Cancel();
-            _tokenSource.Dispose();
-            _tokenSource = new();
+            lock(__locker)
+            {
+                _tokenSource.Cancel();
+                _tokenSource.Dispose();
+                _tokenSource = new();
+            }
         }
     }
 }

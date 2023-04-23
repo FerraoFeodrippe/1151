@@ -2,6 +2,7 @@
 using _1152.Cross.Util.Helpers;
 using _1152.Modules.Contracts;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace _1152.Modules.Implementation
 {
@@ -37,10 +38,8 @@ namespace _1152.Modules.Implementation
             return ReflectionHelper.GetTypesIsSubclassOf(typeof(BaseModule)).Select(t => t.Name.Remove(t.Name.LastIndexOf(ModuleSufix))).ToArray();
         }
 
-
         protected MethodInfo[] Methods => ReflectionHelper.GetCustomImplementMethods(GetType());
         protected MethodInfo? Method => ReflectionHelper.GetCustomImplementMethod(GetMethodName(), GetType());
-
 
         public string GetModuleName() => Args[0];
         public string GetMethodName() => Args[1];
@@ -59,35 +58,57 @@ namespace _1152.Modules.Implementation
             return Array.Empty<ParameterInfo>();
         }
 
-        public void Run()
+        public async void Run()
         {
             if (Method != null)
             {
                 OutputsPrinter.Print($"{Method.Name} {string.Join(" ",GetParametersValues())} ");
 
                 var objParams = ReflectionHelper.GetObjectParameters(Method, GetParametersValues());
-                var result = Method.Invoke(this, objParams.ToArray());
 
-                if (result != null)
+                object? methodResult = null;
+
+                if (ReflectionHelper.IsMethodAsync(Method))
                 {
+                    var methodResultAsync = (Task?) Method.Invoke(this, objParams.ToArray());
 
+                    if (methodResultAsync != null)
+                    {
+                        await methodResultAsync.ConfigureAwait(false);
+
+                        var resultProperty = methodResultAsync.GetType().GetProperty("Result");
+
+                        if  (resultProperty != null)
+                        {
+                            methodResult = resultProperty.GetValue(methodResultAsync);
+
+                        }
+                    }
+                }
+                else
+                {
+                    methodResult = Method.Invoke(this, objParams.ToArray());
+                }
+
+                if (methodResult != null)
+                {
                     OutputsPrinter.Print($"Result:");
 
-                    if (result.GetType().IsArray)
+                    if (methodResult.GetType().IsArray)
                     {    
-                        foreach(var r in (Array) result)
+                        foreach(var r in (Array)methodResult)
                         {
                             OutputsPrinter.Print(r.ToString() ?? string.Empty);
                         }
 
-                        if (((Array)result).Length == 0)
+                        if (((Array)methodResult).Length == 0)
                         {
                             OutputsPrinter.Print("No result.");
                         }
                     }
                     else 
                     {
-                        OutputsPrinter.Print(result.ToString() ?? "No result.");
+                        OutputsPrinter.Print(methodResult.ToString() ?? "No result.");
                     }
                 }
                 else

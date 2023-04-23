@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace _1152.Cross.Util.Helpers
 {
@@ -66,6 +67,11 @@ namespace _1152.Cross.Util.Helpers
             }
 
             return objParams;
+        }
+
+        public static bool IsMethodAsync(MethodInfo method)
+        {
+            return method.GetCustomAttribute<AsyncStateMachineAttribute>() != null;
         }
     }
 }
