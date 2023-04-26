@@ -14,13 +14,13 @@ If do not needs build run:
 > dotnet run --no-build {modulename} {methodName} {parametersDefined}
 
 Or you can run on builded folder the dll "152.Presentation.Console.dll" since you are on root of this folder
--> dotnet 1152.Presentation.Console.dll BasicUtil Sum 1 1
+> dotnet 1152.Presentation.Console.dll BasicUtil Sum 1 1
 
 After inside context you can type at start -stop to stop aplication
--> -stop
+> stop
 
 After inside context you can type at start -reset to reset module input
--> -reset
+> reset
 
 # Possible mapped errors
 
