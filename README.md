@@ -17,10 +17,10 @@ Or you can run on builded folder the dll "152.Presentation.Console.dll" since yo
 > dotnet 1152.Presentation.Console.dll BasicUtil Sum 1 1
 
 After inside context you can type at start -stop to stop aplication
-> stop
+> -stop
 
 After inside context you can type at start -reset to reset module input
-> reset
+> -reset
 
 # Possible mapped errors
 
