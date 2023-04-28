@@ -11,7 +11,7 @@ using (var app = new App())
     Console.WriteLine($"To stop application type at start: {AppConstants.StopCmd}.");
 
     string actualModule = args.Length > 0 ? args[0] : string.Empty;
-    int cmdCheckController = 0;
+    int cmdCheckController = args.Length > 0 ? 1 : 0;
     app.Run(args);
 
     while (true)

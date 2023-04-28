@@ -111,11 +111,6 @@ namespace _1152.Modules.Implementation
                         OutputsPrinter.Print(methodResult.ToString() ?? "No result.");
                     }
                 }
-                else
-                {
-                    OutputsPrinter.Print("Executed.");
-                }
-
             }
         }
     }

@@ -1,8 +1,7 @@
 {
   "profiles": {
     "1152.Presentation.Console": {
-      "commandName": "Project",
-      "commandLineArgs": "lo l"
+      "commandName": "Project"
     }
   }
 }
