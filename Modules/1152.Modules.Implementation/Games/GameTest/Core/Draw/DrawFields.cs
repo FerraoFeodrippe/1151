@@ -11,16 +11,16 @@
             if (canDraw)
             {
                 canDraw = false;
-                for (int i = 0; i < maxW; i++)
+                for (int i = 0; i < maxH; i++)
                 {
                     int k = i;
-                    for (int j = 0; j < maxH; j++)
+                    for (int j = 0; j < maxW; j++)
                     {
                         int w = j;
                         Task.Run(() =>
                         {
-                            MoveAndDraw(fields, k, w);
-                            if (k == (maxW - 1))
+                            MoveAndDraw(fields, w, k);
+                            if (k == (maxH - 1) && w == (maxW - 1))
                             {
                                 canDraw = true;
                             }
@@ -35,7 +35,7 @@
             lock (_locker)
             {
                 Console.SetCursorPosition(i, j);
-                Console.Write(fields[i][j]);
+                Console.Write(fields[j][i]);
             }
         }
     }

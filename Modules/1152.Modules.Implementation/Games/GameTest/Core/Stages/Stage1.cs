@@ -7,28 +7,28 @@ namespace _1152.Modules.Application.Games.GameTest.Core.Stages
         public static void Load(char[][] field, int maxW, int maxH)
         {
             field[0][0] = ElementsBase.UlCornerPipe;
-            field[maxW - 1][ 0] = ElementsBase.UrCornerPipe;
-            field[0][ maxH - 1] = ElementsBase.LlCornerPipe;
-            field[maxW - 1][maxH - 1] = ElementsBase.LrCornerPipe;
+            field[0][maxW - 1] = ElementsBase.UrCornerPipe;
+            field[maxH - 1][0] = ElementsBase.LlCornerPipe;
+            field[maxH - 1][maxW - 1] = ElementsBase.LrCornerPipe;
 
             for (int i = 1; i < maxW - 1; i++)
             {
-                field[i][0] = ElementsBase.HorizontalPipe;
+                field[0][i] = ElementsBase.HorizontalPipe;
             }
 
             for (int i = 1; i < maxW - 1; i++)
             {
-                field[i][maxH - 1] = ElementsBase.HorizontalPipe;
+                field[maxH - 1][i] = ElementsBase.HorizontalPipe;
             }
 
             for (int i = 1; i < maxH - 1; i++)
             {
-                field[0][i] = ElementsBase.VerticalPipe;
+                field[i][0] = ElementsBase.VerticalPipe;
             }
 
             for (int i = 1; i < maxH - 1; i++)
             {
-                field[maxW - 1][i] = ElementsBase.VerticalPipe;
+                field[i][maxW - 1] = ElementsBase.VerticalPipe;
             }
         }
     }
